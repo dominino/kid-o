@@ -8,6 +8,8 @@ packages = [
     about['__title__'],
 ]
 
+install_requires = [x.strip() for x in open('requirements-frozen.txt').readlines()]
+
 setup(
     name=about['__title__'],
     version=about['__version__'],
@@ -20,6 +22,7 @@ setup(
     packages=packages,
     package_dir={about['__title__']: about['__title__']},
     include_package_data=True,
+    install_requires=install_requires,
     zip_safe=False,
     platforms='any',
     classifiers=[
