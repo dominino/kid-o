@@ -36,9 +36,12 @@ except ImportError:
     pass
 
 
-auth = ""
-if DB_USERNAME and DB_PASSWORD:
-    auth = "{user}:{password}@".format(user=DB_USERNAME, password=DB_PASSWORD)
-SQLALCHEMY_DATABASE_URI = "postgresql://{auth}{host}/{database}".format(
-    auth=auth, host=DB_HOST, database=DB_NAME
-)
+if os.environ.get('DATABASE_URL'):
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
+else:
+    auth = ""
+    if DB_USERNAME and DB_PASSWORD:
+        auth = "{user}:{password}@".format(user=DB_USERNAME, password=DB_PASSWORD)
+    SQLALCHEMY_DATABASE_URI = "postgresql://{auth}{host}/{database}".format(
+        auth=auth, host=DB_HOST, database=DB_NAME
+    )
